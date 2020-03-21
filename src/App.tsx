@@ -33,7 +33,7 @@ const App: React.FC = () => {
     setLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=fd6a8abe8458130114f3ed2082251f89&with_genre=${selectedGenre}&sort_by=popularity.desc`
+        `https://api.themoviedb.org/3/discover/movie?api_key=fd6a8abe8458130114f3ed2082251f89&with_genres=${selectedGenre}&sort_by=popularity.desc`
       )
       .then(res => {
         const randomNumber = Math.floor(
