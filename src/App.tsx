@@ -33,7 +33,7 @@ const App: React.FC = () => {
     setLoading(true);
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=fd6a8abe8458130114f3ed2082251f89&with_genres=${selectedGenre}&sort_by=popularity.desc`
+        `https://api.themoviedb.org/3/discover/movie?api_key=apikeytothemoviedatabse&with_genres=${selectedGenre}&sort_by=popularity.desc`
       )
       .then(res => {
         const randomNumber = Math.floor(
@@ -47,7 +47,7 @@ const App: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=fd6a8abe8458130114f3ed2082251f89&language=en-EN"
+        "https://api.themoviedb.org/3/genre/movie/list?api_key=apikeytothemoviedatabse&language=en-EN"
       )
       .then(res => {
         setGenres(res.data.genres);
