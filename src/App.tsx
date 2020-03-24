@@ -3,6 +3,8 @@ import "./App.css";
 import axios from "axios";
 import Movie from "./Movie";
 import Textbox from "./Textbox";
+import dotenv from "dotenv";
+dotenv.config();
 
 interface MovieSchema {
   title: string;
@@ -25,13 +27,7 @@ const App: React.FC = () => {
   });
 
   const changeOption = (e: React.FormEvent<HTMLSelectElement>) => {
-    console.log(selectedGenre);
     setSelectedGenre(e.currentTarget.value.toString());
-    setTimeout(() => console.log(selectedGenre), 1000);
-    const value = e.currentTarget.value;
-    setTimeout(() => {
-      console.log("Selected genre: " + selectedGenre, "Option genre: " + value);
-    }, 1000);
   };
 
   const changeText = (e: React.FormEvent<HTMLInputElement>) => {
@@ -42,7 +38,7 @@ const App: React.FC = () => {
     var response;
     if (searchTerm.length > 0) {
       response = await axios.get(
-        `https://api.themoviedb.org/3/search/person?api_key=<apikey>&language=en-US&query=${searchTerm}&page=1&include_adult=false`
+        `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
       );
       if (response.data.results.length === 0) {
         alert(
@@ -51,7 +47,7 @@ const App: React.FC = () => {
       } else {
         axios
           .get(
-            `https://api.themoviedb.org/3/discover/movie?api_key=<apikey>&with_genres=${selectedGenre}&with_cast=${response.data.results[0].id}&sort_by=popularity.desc`
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${selectedGenre}&with_cast=${response.data.results[0].id}&sort_by=popularity.desc`
           )
           .then(res => {
             const randomNumber = Math.floor(
@@ -62,7 +58,7 @@ const App: React.FC = () => {
 
         axios
           .get(
-            `https://api.themoviedb.org/3/discover/movie?api_key=<apikey>&with_genres=${selectedGenre}&sort_by=popularity.desc`
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${selectedGenre}&sort_by=popularity.desc`
           )
           .then(res => {
             const randomNumber = Math.floor(
@@ -77,7 +73,7 @@ const App: React.FC = () => {
   useEffect(() => {
     axios
       .get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=<apikey>&language=en-EN"
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-EN`
       )
       .then(res => {
         setGenres(res.data.genres);
