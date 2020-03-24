@@ -55,18 +55,18 @@ const App: React.FC = () => {
             );
             setMovie(res.data.results[randomNumber]);
           });
-
-        axios
-          .get(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${selectedGenre}&sort_by=popularity.desc`
-          )
-          .then(res => {
-            const randomNumber = Math.floor(
-              Math.random() * res.data.results.length
-            );
-            setMovie(res.data.results[randomNumber]);
-          });
       }
+    } else {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&with_genres=${selectedGenre}&sort_by=popularity.desc`
+        )
+        .then(res => {
+          const randomNumber = Math.floor(
+            Math.random() * res.data.results.length
+          );
+          setMovie(res.data.results[randomNumber]);
+        });
     }
   };
 
